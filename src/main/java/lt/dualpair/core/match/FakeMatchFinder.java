@@ -6,6 +6,7 @@ import lt.dualpair.core.socionics.RelationTypeRepository;
 import lt.dualpair.core.socionics.Sociotype;
 import lt.dualpair.core.socionics.SociotypeRepository;
 import lt.dualpair.core.user.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestOperations;
 
@@ -118,18 +119,22 @@ public class FakeMatchFinder implements MatchFinder {
         return match;
     }
 
+    @Autowired
     public void setSociotypeRepository(SociotypeRepository sociotypeRepository) {
         this.sociotypeRepository = sociotypeRepository;
     }
 
+    @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    @Autowired
     public void setRelationTypeRepository(RelationTypeRepository relationTypeRepository) {
         this.relationTypeRepository = relationTypeRepository;
     }
 
+    @Autowired
     public void setRestOperations(RestOperations restOperations) {
         this.restOperations = restOperations;
     }
