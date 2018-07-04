@@ -1,11 +1,10 @@
-package lt.dualpair.core.match;
+package lt.dualpair.core.user;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum Response {
 
-    UNDEFINED("U"),
     NO("N"),
     YES("Y");
 

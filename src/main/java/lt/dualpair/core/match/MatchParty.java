@@ -3,7 +3,6 @@ package lt.dualpair.core.match;
 import lt.dualpair.core.user.User;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "match_parties")
@@ -20,12 +19,6 @@ public class MatchParty {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    private Response response = Response.UNDEFINED;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "response_time")
-    private Date responseDate;
 
     public MatchParty() {}
 
@@ -58,12 +51,4 @@ public class MatchParty {
         this.user = user;
     }
 
-    public Response getResponse() {
-        return response;
-    }
-
-    public void setResponse(Response response) {
-        this.response = response;
-        responseDate = new Date();
-    }
 }

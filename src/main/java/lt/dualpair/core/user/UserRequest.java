@@ -1,15 +1,11 @@
-package lt.dualpair.core.match;
+package lt.dualpair.core.user;
 
 import lt.dualpair.core.socionics.RelationType;
-import lt.dualpair.core.user.Gender;
-import lt.dualpair.core.user.User;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class MatchRequest {
+public class UserRequest {
 
     private static final int DEFAULT_RADIUS = 300000; // meters
 
@@ -27,15 +23,15 @@ public class MatchRequest {
     private String countryCode;
     private int radius = DEFAULT_RADIUS;
 
-    private List<Long> excludedOpponentIds = new ArrayList<>();
+    private Set<Long> excludedOpponentIds = new HashSet<>();
 
-    MatchRequest() {}
+    UserRequest() {}
 
-    public List<Long> getExcludedOpponentIds() {
+    public Set<Long> getExcludedOpponentIds() {
         return excludedOpponentIds;
     }
 
-    public void setExcludedOpponentIds(List<Long> excludedOpponentIds) {
+    public void setExcludedOpponentIds(Set<Long> excludedOpponentIds) {
         this.excludedOpponentIds = excludedOpponentIds;
     }
 

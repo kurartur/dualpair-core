@@ -1,65 +1,66 @@
-package lt.dualpair.core.match;
+package lt.dualpair.core.user;
 
-import lt.dualpair.core.user.Gender;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class MatchRequestBuilderTest {
+public class UserRequestBuilderTest {
 
     @Test
     public void testAgeRange() throws Exception {
-        MatchRequest mr = new MatchRequestBuilder(null).ageRange(10, 20).build();
+        UserRequest mr = new UserRequestBuilder(null).ageRange(10, 20).build();
         assertEquals(10, mr.getMinAge());
         assertEquals(20, mr.getMaxAge());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAgeRange_invalidMinAge() throws Exception {
-        new MatchRequestBuilder(null).ageRange(-1, 20);
+        new UserRequestBuilder(null).ageRange(-1, 20);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAgeRange_invalidMaxAge() throws Exception {
-        new MatchRequestBuilder(null).ageRange(10, -1);
+        new UserRequestBuilder(null).ageRange(10, -1);
     }
 
 
     @Test(expected = IllegalArgumentException.class)
     public void testAgeRange_invalidAges() throws Exception {
-        new MatchRequestBuilder(null).ageRange(20, 10);
+        new UserRequestBuilder(null).ageRange(20, 10);
     }
 
     @Test
     public void testGenders() throws Exception {
-        MatchRequest mr = new MatchRequestBuilder(null).genders(new HashSet<>(Arrays.asList(Gender.FEMALE, Gender.MALE))).build();
+        UserRequest mr = new UserRequestBuilder(null).genders(new HashSet<>(Arrays.asList(Gender.FEMALE, Gender.MALE))).build();
         assertTrue(mr.getGenders().contains(Gender.FEMALE));
         assertTrue(mr.getGenders().contains(Gender.MALE));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGenders_null() throws Exception {
-        new MatchRequestBuilder(null).genders(null);
+        new UserRequestBuilder(null).genders(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGenders_empty() throws Exception {
-        new MatchRequestBuilder(null).genders(new HashSet<>());
+        new UserRequestBuilder(null).genders(new HashSet<>());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGenders_nullElements() throws Exception {
         Set<Gender> genders = new HashSet<>();
         genders.add(null);
-        new MatchRequestBuilder(null).genders(genders);
+        new UserRequestBuilder(null).genders(genders);
     }
 
     @Test
     public void testLocation() throws Exception {
-        MatchRequest mr = new MatchRequestBuilder(null).location(10.0, 11.0, "LT").build();
+        UserRequest mr = new UserRequestBuilder(null).location(10.0, 11.0, "LT").build();
         assertEquals(10.0, mr.getLatitude(), 0);
         assertEquals(11.0, mr.getLongitude(), 0);
         assertEquals("LT", mr.getCountryCode());
@@ -67,30 +68,30 @@ public class MatchRequestBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testLocation_nullCountry() throws Exception {
-        new MatchRequestBuilder(null).location(10.0, 11.0, null);
+        new UserRequestBuilder(null).location(10.0, 11.0, null);
     }
 
     @Test
     public void testExcludeOpponents() throws Exception {
-        MatchRequest mr = new MatchRequestBuilder(null).excludeOpponents(Arrays.asList(10L, 20L)).build();
+        UserRequest mr = new UserRequestBuilder(null).excludeOpponents(new HashSet<>(Arrays.asList(10L, 20L))).build();
         assertEquals(2, mr.getExcludedOpponentIds().size());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testExcludeOpponents_empty() throws Exception {
-        new MatchRequestBuilder(null).excludeOpponents(new ArrayList<>());
+        new UserRequestBuilder(null).excludeOpponents(new HashSet<>());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testExcludeOpponents_null() throws Exception {
-        new MatchRequestBuilder(null).excludeOpponents(null);
+        new UserRequestBuilder(null).excludeOpponents(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testExcludeOpponents_nullElements() throws Exception {
-        List<Long> ids = new ArrayList<>();
+        Set<Long> ids = new HashSet<>();
         ids.add(null);
-        new MatchRequestBuilder(null).excludeOpponents(ids);
+        new UserRequestBuilder(null).excludeOpponents(ids);
     }
 
     @Test
@@ -100,7 +101,7 @@ public class MatchRequestBuilderTest {
         searchParameters.setMaxAge(20);
         searchParameters.setSearchMale(true);
         searchParameters.setSearchFemale(true);
-        MatchRequest mr = new MatchRequestBuilder(null).apply(searchParameters).build();
+        UserRequest mr = new UserRequestBuilder(null).apply(searchParameters).build();
         assertEquals(10, mr.getMinAge());
         assertEquals(20, mr.getMaxAge());
         assertTrue(mr.getGenders().contains(Gender.FEMALE));
@@ -109,6 +110,6 @@ public class MatchRequestBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testApplySearchParameters_null() throws Exception {
-        new MatchRequestBuilder(null).apply(null);
+        new UserRequestBuilder(null).apply(null);
     }
 }

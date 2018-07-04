@@ -37,10 +37,6 @@ public class UserAwareMatch {
         return match.getOppositeMatchParty(userId);
     }
 
-    public Integer getDistance() {
-        return match.getDistance();
-    }
-
     public static Set<UserAwareMatch> fromSet(User user, Set<Match> matches) {
         Assert.notNull(user);
         Assert.notNull(matches);

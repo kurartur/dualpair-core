@@ -1,7 +1,5 @@
-package lt.dualpair.core.match;
+package lt.dualpair.core.user;
 
-import lt.dualpair.core.user.Gender;
-import lt.dualpair.core.user.User;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;

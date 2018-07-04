@@ -1,7 +1,9 @@
 package lt.dualpair.core.match;
 
+import lt.dualpair.core.user.UserRequest;
+
 public interface MatchFinder {
 
-    Match findOne(MatchRequest matchRequest);
+    Match findOne(UserRequest userRequest);
 
 }

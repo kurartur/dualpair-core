@@ -1,6 +1,5 @@
 package lt.dualpair.core.user;
 
-import lt.dualpair.core.match.SearchParameters;
 import lt.dualpair.core.photo.Photo;
 import lt.dualpair.core.socionics.Sociotype;
 import org.apache.commons.lang3.Validate;

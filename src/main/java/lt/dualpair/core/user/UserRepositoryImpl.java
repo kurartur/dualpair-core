@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class UserRepositoryImpl implements CustomUserRepository {
@@ -61,9 +60,9 @@ public class UserRepositoryImpl implements CustomUserRepository {
         protected int maxAge;
         protected Set<Gender> genders;
         protected String countryCode;
-        protected List<Long> excludeOpponents;
+        protected Set<Long> excludeOpponents;
 
-        public FindOpponentsParams(User user, Sociotype sociotype, int minAge, int maxAge, Set<Gender> genders, String countryCode, List<Long> excludeOpponents) {
+        public FindOpponentsParams(User user, Sociotype sociotype, int minAge, int maxAge, Set<Gender> genders, String countryCode, Set<Long> excludeOpponents) {
             this.user = user;
             this.sociotype = sociotype;
             this.minAge = minAge;

@@ -26,15 +26,9 @@ public class Match implements Serializable, Identifiable<Long> {
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private Set<MatchParty> matchParties = new HashSet<>();
 
-    private Integer distance;
-
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time")
-    private Date dateCreated = new Date();
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "mutual_time")
-    private Date dateBecameMutual;
+    @Column(name = "time")
+    private Date date;
 
     @Override
     public Long getId() {
@@ -87,34 +81,11 @@ public class Match implements Serializable, Identifiable<Long> {
         return null;
     }
 
-    public boolean isMutual() {
-        Iterator<MatchParty> matchPartyIterator = matchParties.iterator();
-        MatchParty first = matchPartyIterator.next();
-        MatchParty second = matchPartyIterator.next();
-        return first.getResponse() == Response.YES && second.getResponse() == Response.YES;
+    public Date getDate() {
+        return date;
     }
 
-    public Integer getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Integer distance) {
-        this.distance = distance;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Date getDateBecameMutual() {
-        return dateBecameMutual;
-    }
-
-    public void setDateBecameMutual(Date dateBecameMutual) {
-        this.dateBecameMutual = dateBecameMutual;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

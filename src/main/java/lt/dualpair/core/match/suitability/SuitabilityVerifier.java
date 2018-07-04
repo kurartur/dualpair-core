@@ -1,6 +1,6 @@
 package lt.dualpair.core.match.suitability;
 
-import lt.dualpair.core.match.SearchParameters;
+import lt.dualpair.core.user.SearchParameters;
 import lt.dualpair.core.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

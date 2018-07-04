@@ -1,11 +1,8 @@
-package lt.dualpair.core.match;
+package lt.dualpair.core.user;
 
 import lt.dualpair.core.photo.Photo;
-import lt.dualpair.core.socionics.RelationType;
-import lt.dualpair.core.socionics.RelationTypeRepository;
 import lt.dualpair.core.socionics.Sociotype;
 import lt.dualpair.core.socionics.SociotypeRepository;
-import lt.dualpair.core.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestOperations;
@@ -13,17 +10,16 @@ import org.springframework.web.client.RestOperations;
 import java.util.*;
 
 @Component
-public class FakeMatchFinder implements MatchFinder {
+public class FakeUserFinder implements UserFinder {
 
     private SociotypeRepository sociotypeRepository;
     private UserRepository userRepository;
-    private RelationTypeRepository relationTypeRepository;
     private RestOperations restOperations;
 
     @Override
-    public Match findOne(MatchRequest matchRequest) {
+    public Optional<User> findOne(UserRequest userRequest) {
         Random random = new Random();
-        Set<Gender> genders = matchRequest.getGenders();
+        Set<Gender> genders = userRequest.getGenders();
         int index = random.nextInt(genders.size());
         Gender gender = new ArrayList<>(genders).get(index);
         RandomResults randomResults = restOperations.getForObject(buildUrl(gender), RandomResults.class);
@@ -33,7 +29,7 @@ public class FakeMatchFinder implements MatchFinder {
         user.setGender(gender);
         user.setEmail(randomUser.email);
         user.setName(randomUser.name.first.substring(0, 1).toUpperCase() + randomUser.name.first.substring(1));
-        user.setDateOfBirth(matchRequest.getUser().getDateOfBirth());
+        user.setDateOfBirth(userRequest.getUser().getDateOfBirth());
         user.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                 " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
                 " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
@@ -42,8 +38,8 @@ public class FakeMatchFinder implements MatchFinder {
         // sociotypes
         Set<Sociotype> sociotypes = new HashSet<>();
         sociotypes.add(sociotypeRepository.findOppositeByRelationType(
-                matchRequest.getUser().getRandomSociotype().getCode1(),
-                matchRequest.getRelationType()));
+                userRequest.getUser().getRandomSociotype().getCode1(),
+                userRequest.getRelationType()));
         user.setSociotypes(sociotypes);
 
         user.setRelationshipStatus(RelationshipStatus.values()[new Random().nextInt(3)]);
@@ -64,9 +60,9 @@ public class FakeMatchFinder implements MatchFinder {
         //location
         UserLocation userLocation = new UserLocation(
                 user,
-                matchRequest.getLatitude(),
-                matchRequest.getLongitude(),
-                matchRequest.getCountryCode(),
+                userRequest.getLatitude(),
+                userRequest.getLongitude(),
+                userRequest.getCountryCode(),
                 randomUser.location.city.substring(0, 1).toUpperCase() + randomUser.location.city.substring(1));
         user.addLocation(userLocation, 1);
 
@@ -87,15 +83,15 @@ public class FakeMatchFinder implements MatchFinder {
         // search parameters
         SearchParameters searchParameters = new SearchParameters();
         searchParameters.setUser(user);
-        searchParameters.setMinAge(matchRequest.getMinAge());
-        searchParameters.setMaxAge(matchRequest.getMaxAge());
+        searchParameters.setMinAge(userRequest.getMinAge());
+        searchParameters.setMaxAge(userRequest.getMaxAge());
         searchParameters.setSearchFemale(true);
         searchParameters.setSearchMale(true);
         user.setSearchParameters(searchParameters);
 
         userRepository.save(user);
 
-        return createMatch(matchRequest.getUser(), user, matchRequest.getRelationType(), random.nextInt(300000));
+        return Optional.of(user);
     }
 
     private Set<PurposeOfBeing> getRandomPurposesOfBeing() {
@@ -110,15 +106,6 @@ public class FakeMatchFinder implements MatchFinder {
         return "https://randomuser.me/api/?gender=" + gender.name().toLowerCase();
     }
 
-    private Match createMatch(User user, User opponent, RelationType.Code relationType, Integer distance) {
-        Match match = new Match();
-        match.setRelationType(relationTypeRepository.findByCode(relationType).get());
-        match.setMatchParties(new MatchParty(match, user), new MatchParty(match, opponent));
-        match.setDistance(distance);
-        match.setDateCreated(new Date());
-        return match;
-    }
-
     @Autowired
     public void setSociotypeRepository(SociotypeRepository sociotypeRepository) {
         this.sociotypeRepository = sociotypeRepository;
@@ -127,11 +114,6 @@ public class FakeMatchFinder implements MatchFinder {
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setRelationTypeRepository(RelationTypeRepository relationTypeRepository) {
-        this.relationTypeRepository = relationTypeRepository;
     }
 
     @Autowired
