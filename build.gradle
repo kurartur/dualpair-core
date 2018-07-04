@@ -9,19 +9,19 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.0-api
-    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version: '1.0.0.Final'
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
 
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa
-    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.5.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.13.RELEASE'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.1.Final'
 
     // https://mvnrepository.com/artifact/org.springframework.hateoas/spring-hateoas
-    compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.23.0.RELEASE'
+    compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.24.0.RELEASE'
 
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.12'
