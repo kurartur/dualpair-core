@@ -19,9 +19,9 @@ public interface MatchRepository extends CrudRepository<Match, Long> {
     Set<Match> findForPossibleRemoval(User user);
 
     @Query(" select m from Match m, MatchParty mp1 " +
-            "where mp1.user = ?1 and m = mp1.match " +
+            "where mp1.user.id = ?1 and m = mp1.match " +
             "and mp1.match.date <= ?2 " +
             "order by mp1.match.date desc")
-    Page<Match> fetchMatches(User user, Date createdBefore, Pageable pageable);
+    Page<Match> fetchMatches(Long userId, Date createdBefore, Pageable pageable);
 
 }

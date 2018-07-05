@@ -3,6 +3,7 @@ package lt.dualpair.core.match;
 import lt.dualpair.core.user.User;
 import org.springframework.util.Assert;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,10 @@ public class UserAwareMatch {
 
     public Long getId() {
         return match.getId();
+    }
+
+    public Date getDate() {
+        return match.getDate();
     }
 
     public MatchParty getUserMatchParty() {
