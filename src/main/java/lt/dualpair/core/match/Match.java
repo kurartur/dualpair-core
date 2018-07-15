@@ -1,6 +1,5 @@
 package lt.dualpair.core.match;
 
-import lt.dualpair.core.socionics.RelationType;
 import org.springframework.hateoas.Identifiable;
 import org.springframework.util.Assert;
 
@@ -19,9 +18,9 @@ public class Match implements Serializable, Identifiable<Long> {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "relation_type_id")
-    private RelationType relationType;
+    private RelationType relationType;*/
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private Set<MatchParty> matchParties = new HashSet<>();
@@ -39,13 +38,13 @@ public class Match implements Serializable, Identifiable<Long> {
         this.id = id;
     }
 
-    public RelationType getRelationType() {
+    /*public RelationType getRelationType() {
         return relationType;
     }
 
     public void setRelationType(RelationType relationType) {
         this.relationType = relationType;
-    }
+    }*/
 
     public Set<MatchParty> getMatchParties() {
         return matchParties;

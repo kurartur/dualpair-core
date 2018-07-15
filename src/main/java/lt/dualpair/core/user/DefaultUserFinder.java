@@ -36,7 +36,7 @@ public class DefaultUserFinder implements UserFinder {
             "LEFT JOIN user_responses ur2 ON ur2.user_id = u.id AND ur2.to_user_id = :userId\n" +
             "INNER JOIN users_sociotypes us ON us.user_id = u.id\n" +
             "INNER JOIN search_parameters sp ON sp.user_id = u.id\n" +
-            "INNER JOIN (SELECT ul.*, ( 6371 * acos( cos( radians(:userLatitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:userLongitude) ) + sin( radians(:userLatitude) ) * sin( radians( latitude ) ) ) ) AS distance\n" +
+            "INNER JOIN (SELECT ul.*, ( 6371 * acos( cos( radians(:userLatitude) ) * cos( radians( ul.latitude ) ) * cos( radians( ul.longitude ) - radians(:userLongitude) ) + sin( radians(:userLatitude) ) * sin( radians( ul.latitude ) ) ) ) AS distance\n" +
             "   FROM user_locations ul\n" +
             "   LEFT OUTER JOIN user_locations ulm ON ul.id = ulm.id AND ul.id < ulm.id\n" +
             "   WHERE ulm.id IS NULL) ul ON ul.user_id = u.id\n" +
