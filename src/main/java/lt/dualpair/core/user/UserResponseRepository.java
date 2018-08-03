@@ -16,4 +16,6 @@ public interface UserResponseRepository extends Repository<UserResponse, Long> {
 
     @Query("select ur from UserResponse ur where ur.user.id = ?1")
     Page<UserResponse> fetchPageByUser(Long userId, Pageable pageable);
+
+    void delete(UserResponse response);
 }
