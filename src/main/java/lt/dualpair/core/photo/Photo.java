@@ -1,7 +1,6 @@
 package lt.dualpair.core.photo;
 
 import lt.dualpair.core.user.User;
-import lt.dualpair.core.user.UserAccount;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,12 +16,6 @@ public class Photo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(name = "account_type")
-    private UserAccount.Type accountType;
-
-    @Column(name = "id_on_account")
-    private String idOnAccount;
 
     @Column(name = "source_link")
     private String sourceLink;
@@ -43,22 +36,6 @@ public class Photo implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public UserAccount.Type getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(UserAccount.Type accountType) {
-        this.accountType = accountType;
-    }
-
-    public String getIdOnAccount() {
-        return idOnAccount;
-    }
-
-    public void setIdOnAccount(String idOnAccount) {
-        this.idOnAccount = idOnAccount;
     }
 
     public String getSourceLink() {

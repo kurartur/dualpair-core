@@ -69,14 +69,10 @@ public class FakeUserFinder implements UserFinder {
         // photos
         Photo photo1 = new Photo();
         photo1.setUser(user);
-        photo1.setAccountType(UserAccount.Type.FACEBOOK);
         photo1.setSourceLink(randomUser.picture.large);
-        photo1.setIdOnAccount("1");
         Photo photo2 = new Photo();
         photo2.setUser(user);
-        photo2.setAccountType(UserAccount.Type.FACEBOOK);
         photo2.setSourceLink(randomUser.picture.large);
-        photo2.setIdOnAccount("2");
         List<Photo> photos = Arrays.asList(photo1, photo2);
         user.setPhotos(photos);
 
