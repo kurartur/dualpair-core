@@ -15,7 +15,7 @@ public class User implements Serializable {
 
     private static final int NAME_LENGTH = 100;
     private static final int DESCRIPTION_LENGTH = 255;
-    public static final int MAX_NUMBER_OF_PHOTOS = 9;
+    public static final int MAX_NUMBER_OF_PHOTOS = 6;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Column(name = "update_time")
     private Date dateUpdated;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private Set<UserAccount> userAccounts;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -112,6 +112,10 @@ public class User implements Serializable {
     public void addUserAccount(UserAccount userAccount) {
         Assert.notNull(userAccount);
         userAccounts.add(userAccount);
+    }
+
+    public void removeAccount(UserAccount.Type accountType) {
+        userAccounts.removeIf(userAccount -> userAccount.getAccountType() == accountType);
     }
 
     public Set<Sociotype> getSociotypes() {
