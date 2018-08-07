@@ -9,7 +9,7 @@ public class UserRequestBuilder {
 
     private UserRequest userRequest = new UserRequest();
 
-    public UserRequestBuilder(User user) { // TODO
+    UserRequestBuilder(User user) {
         userRequest.setUser(user);
     }
 
